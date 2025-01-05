@@ -14,8 +14,11 @@ Added extra info about the different rom choices
 Great guides I used for help along the way
 
 <https://libreboot.org/docs/install/t480.html>
+
 <https://libreboot.org/docs/install/spi.html>
+
 <https://ezntek.com/posts/librebooting-the-thinkpad-t480-20241207t0933/>
+
 <https://www.cyberciti.biz/faq/update-lenovo-bios-from-linux-usb-stick-pen/>
 
 NOTE: Some of these steps are likely to change very soon. One has already changed before I posted (this will be mentioned below). When the scripts/official documents change, blindly following these steps will likely cause problems and headaches. Please use alongside the official documentation
