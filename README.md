@@ -34,29 +34,28 @@ Working:
 
 Not working:
 
-    headphone jack
-
-    display backlight function keys
+   * headphone jack
+   * display backlight function keys
 
 Things I needed:
 
-    ThinkPad T480 or T480s
+  *  ThinkPad T480 or T480s
 
-    Another PC running Linux (without an ecryptfs filesystem. If you have an encrypted home using ecryptfs directory, you will want to use a live Linux USB for your 2nd machine, as the vendor flash script will fail. This is a common issue when using Linux Mint with an encrypted /home)
+   * Another PC running Linux (without an ecryptfs filesystem. If you have an encrypted home using ecryptfs directory, you will want to use a live Linux USB for your 2nd machine, as the vendor flash script will fail. This is a common issue when using Linux Mint with an encrypted /home)
 
-    Raspberry Pi Pico (with pins soldered)
+ *   Raspberry Pi Pico (with pins soldered)
 
-    SOIC 8 test clip
+ *   SOIC 8 test clip
 
-    jumper wires to go from the test clip to the rpi
+ *   jumper wires to go from the test clip to the rpi
 
-    internet connection
+  *  internet connection
 
-    usb stick that can be wiped
+ *   usb stick that can be wiped
 
-    basic Linux knowledge
+ *   basic Linux knowledge
 
-    many prayers
+ *   many prayers
 
 Upgrade/Downgrade Factory BIOS
 
