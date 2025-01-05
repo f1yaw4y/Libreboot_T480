@@ -5,7 +5,6 @@ Edit 1/5/2025:
 Added Compatibility Log
 
 
-
 EDIT 1/1/2025:
 Added more images showing how to wire and place the test clip
 Added extra info about the different rom choices
@@ -22,9 +21,10 @@ Great guides I used for help along the way
 <https://www.cyberciti.biz/faq/update-lenovo-bios-from-linux-usb-stick-pen/>
 
 NOTE: Some of these steps are likely to change very soon. One has already changed before I posted (this will be mentioned below). When the scripts/official documents change, blindly following these steps will likely cause problems and headaches. Please use alongside the official documentation
-Tested Features (This is only my personal testing):
 
-Working:
+# Tested Features (This is only my personal testing):
+
+### Working:
 
    * trackpad
    * keyboard (with backlight function - only options for brightness are 0%, 50%, or 100%)
@@ -35,7 +35,7 @@ Working:
    * dual battery power bridge
    * camera
 
-Not working:
+### Not working:
 
    * headphone jack
    * display backlight function keys
@@ -60,13 +60,13 @@ Things I needed:
 
  *   many prayers
 
-Upgrade/Downgrade Factory BIOS
+# Upgrade/Downgrade Factory BIOS
 
 It is worth noting that it is recommended to take a few steps before updating/downgrading the bios:
 
-    dump/backup the current bios
+  1.  dump/backup the current bios
 
-    deal with the Thunderbolt Issue
+  2.  deal with the Thunderbolt Issue
 
 However, I did not do either of these steps, so we will move on to the upgrading/downgrading
 
@@ -127,7 +127,8 @@ Once the machine reboots, it will continue the flashing process. Please be patie
 After the flashing is completely done, go back into the bios and confirm that it is V1.52
 
 If it says 1.52, you are good to go
-Prepare Firmware/Flash Vendor Blobs
+
+# Prepare Firmware/Flash Vendor Blobs
 
 Next you will want to download the libreboot image for the T480/T480s
 
@@ -182,7 +183,8 @@ Now, it is time to prepare for flashing. In a terminal, we will want to run "dme
 [  +0.006042] cdc_acm 7-3:1.0: ttyACM0: USB ACM device #<< THIS IS WHAT WE WANT
 
 Take note of the value "ttyACM0" ^^^
-Backup the current BIOS
+
+# Backup the current BIOS
 
 Now, before we begin flashing the new firmware, we need to backup the old one in case anything goes wrong. This, I did do, and I did need to restore the backups. Hopefully you won't have to restore them, but they are indeed very good to have handy. So let's connect the test clip correctly. First we need to disassemble the laptop, and disconnect all batteries/power sources (including the CMOS battery). After this you will find an 8 pin chip near the RAM labeled as Winbond (there is also a Winbond chip near the hinges. This is the thunderbolt controller, ignore this chip - unless you need to apply the fix as discussed earlier). You may also have a macronix BIOS chip instead of winbond. Be sure to inspect your chip. Be sure to connect the clip correctly BEFORE connecting power/usb to the pico. Always connect/disconnect the clip while NO POWER IS ATTACHED
 
@@ -209,7 +211,8 @@ Once you have 3 dumps, run this command:
 sha256sum t480_stockbios*.bin
 
 Check the output. There should be 3 lines, and all lines should be identical. If they are not identical, run the flashrom command again until you have 3 identical dumps
-Selecting the right ROM for you
+
+# Selecting the right ROM for you
 
 After this is done, we are ready to wipe the chip and replace it with libreboot. But before we do so, we need to figure out which rom to use. If we check our rom folder, we see several different roms to choose. Although I cannot explain what all the various options do, I can give info for a few of them:
 
@@ -234,7 +237,8 @@ There are also variants of both seabios and seagrub that are configured as txtmo
 
 There are also some strange layouts like Dvorak and Colemak. This is what I could find regarding these two layouts:
 r/libreboot - A guide for flashing the T480
-Time to flash!
+
+# Time to flash!
 
 Now that we have our rom picked out, we can flash it with one easy command:
 
