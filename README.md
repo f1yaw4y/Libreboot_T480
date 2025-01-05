@@ -84,7 +84,7 @@ After you have the iso image, unfortunately you cannot just write it to a usb st
 
 Debian/Ubuntu:
 
-sudo apt install genisoimage
+```sudo apt install genisoimage```
 
 Fedora:
 
@@ -189,16 +189,19 @@ Take note of the value "ttyACM0" ^^^
 Now, before we begin flashing the new firmware, we need to backup the old one in case anything goes wrong. This, I did do, and I did need to restore the backups. Hopefully you won't have to restore them, but they are indeed very good to have handy. So let's connect the test clip correctly. First we need to disassemble the laptop, and disconnect all batteries/power sources (including the CMOS battery). After this you will find an 8 pin chip near the RAM labeled as Winbond (there is also a Winbond chip near the hinges. This is the thunderbolt controller, ignore this chip - unless you need to apply the fix as discussed earlier). You may also have a macronix BIOS chip instead of winbond. Be sure to inspect your chip. Be sure to connect the clip correctly BEFORE connecting power/usb to the pico. Always connect/disconnect the clip while NO POWER IS ATTACHED
 
 Your clip should look similar to the image here when it is seated correctly:
-r/libreboot - A guide for flashing the T480
-r/libreboot - A guide for flashing the T480
+![image](https://github.com/user-attachments/assets/a563d68b-9a87-45f5-8ec1-e362a5a12e91)
+![image](https://github.com/user-attachments/assets/bce1bf2e-beac-4755-99c5-1092911a5cd5)
+
+
 
 These next images were taken directly from libreboot documentation as well as ezntek and I highly recommend doing your own research in these documents as well. Messing this up can and will cause issues. Make sure the test clip is flush with the board, and the pin 1 indicator (either a different colored wire or some indicator on the plastic clip) matches up with pin1 on the board shown below
-r/libreboot - A guide for flashing the T480
-r/libreboot - A guide for flashing the T480
+![image](https://github.com/user-attachments/assets/0d6d4c5d-f337-4bb6-9c73-39e97c52bbc3)
+![image](https://github.com/user-attachments/assets/3024e8ff-2b3d-4c22-9375-9a6cbe543287)
+
 
 This is the command we will run after successfully connecting the test clip, to create a dump of the chip:
 
-flashrom -p yourprogrammer -c "your chip model" -r t480_stockbios_1.bin
+```flashrom -p yourprogrammer -c "your chip model" -r t480_stockbios_1.bin```
 
 In my case:
 
@@ -222,8 +225,6 @@ After this is done, we are ready to wipe the chip and replace it with libreboot.
 
 This way, it boots straight to grub without any user input
 
-The below image shows the only difference I can find between the two. This is seagrub. Notice how boot option 1 is grub2 payload, and option 2 is my NVMe. This is reversed if you flash the seabios rom. In seabios rom, option 1 will be the NVMe, and option 2 will be the grub2 payload
-r/libreboot - A guide for flashing the T480
 
 If you have an encrypted drive, or dual drives, going straight to grub (seagrub rom) will be the best option, as it will not require you to interrupt the boot process to get into grub. If you flash a seabios rom with an encrypted drive, it will get stuck forever trying to "boot from hdd". You will need to press "esc" before the hdd starts booting, to enter the menu above, and select option 2 for the grub2 payload
 
@@ -255,6 +256,7 @@ Erasing and writing flash chip... Erase/write done.
 Verifying flash... VERIFIED.
 
 After successful verification, you can disconnect the pico's usb cable (do this before removing the test clip), re-assemble, and enjoy your new BIOS!
-https://github.com/f1yaw4y/Libreboot_T480/blob/main/images/t480-images/seagrub.jpg
+![image](https://github.com/user-attachments/assets/8b7bb93e-0eb5-40bd-a3ae-5db0c1c70254)
+
 
 
