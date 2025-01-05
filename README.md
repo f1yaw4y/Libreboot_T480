@@ -255,5 +255,6 @@ Erasing and writing flash chip... Erase/write done.
 Verifying flash... VERIFIED.
 
 After successful verification, you can disconnect the pico's usb cable (do this before removing the test clip), re-assemble, and enjoy your new BIOS!
-![alt text](https://github.com/f1yaw4y/Libreboot_T480/images/t480-images/seagrub.jpg "Logo Title Text 1")
+https://github.com/f1yaw4y/Libreboot_T480/blob/main/images/t480-images/seagrub.jpg
+
 
