@@ -88,19 +88,19 @@ Debian/Ubuntu:
 
 Fedora:
 
-sudo dnf install geteltorito genisoimage
+```sudo dnf install geteltorito genisoimage```
 
 Next, we will want to convert our iso to an img:
 
-geteltorito -o {output-file.img {Bootable-CD.iso}
+```geteltorito -o {output-file.img {Bootable-CD.iso}```
 
 in the case of the T480, an example would be:
 
-geteltorito -o T480.img n24ur39w.iso #assuming the n24ur39w.iso is in your home directory
+```geteltorito -o T480.img n24ur39w.iso #assuming the n24ur39w.iso is in your home directory```
 
 After the img has been saved, you can then write this file to a usb stick using the following command:
 
-sudo dd if=T480.img of=/dev/sdx bs=4M
+```sudo dd if=T480.img of=/dev/sdx bs=4M```
 
 You will need to replace "sdx" with your usb stick's location. You can find it by running lsblk and looking for a device with the same size as your usb. If you have a 128GB usb stick it may say 119.5G, and it will be labeled sda, sdb, sdc, etc. DO be sure to double check this and ensure you are not selecting the wrong drive. Using the wrong drive here will wipe it
 
@@ -144,20 +144,20 @@ Now that we have the firmware, we need to modify the roms with vendor blobs. Wit
 
 To flash the vendor blobs, we need more software. Download the lbmk repo through your terminal >
 
->git clone https://notabug.org/libreboot/lbmk.git
+```git clone https://notabug.org/libreboot/lbmk.git```
 
 Now we want to copy the archive with our T480 roms to this folder, or take note of it's current location. IMO it is easier to work with if you copy the archive to the lbmk folder
 
 Now,
-
+```
 cd lbmk
 sudo ./mk dependencies debian (if you use debian - recommended)
 sudo ./mk dependencies mint (if you use mint - not recommended)
 sudo ./mk dependencies arch (if you use arch)
-
+```
 and finally
 
-./vendor inject libreboot-20241206rev6_t480_fsp_16mb.tar.xz
+```./vendor inject libreboot-20241206rev6_t480_fsp_16mb.tar.xz```
 
 If you run into issues injecting the blobs, be sure you are not running in an encryptfs encrypted directory, as some of the filenames will be too long to process and the script will fail. If this is the case, I recommend using a live linux distro like debian for this part of the process. I got it to work on a Linux Mint live ISO, but debian is recommended
 
@@ -173,7 +173,7 @@ Now, hold down the "Bootsel" button on the pico while connecting the usb cable t
 Simply drag the uf2 file to the raspberry pi, and it will automatically disconnect as the update applies. Give it a few seconds, and then unplug the pico's usb from your pc
 
 Now, it is time to prepare for flashing. In a terminal, we will want to run "dmesg -wh" and AFTER running this command, plug in your newly flashed raspberry pi pico (do not hold the button this time). You will see the terminal update when the usb device is recognized. We want to look for line similar to this:
-
+```
 [  +1.391500] usb 7-3: new full-speed USB device number 12 using ohci-pci
 [  +0.171110] usb 7-3: New USB device found, idVendor=cafe, idProduct=4001, bcdDevice= 1.00
 [  +0.000015] usb 7-3: New USB device strings: Mfr=1, Product=2, SerialNumber=3
@@ -181,7 +181,7 @@ Now, it is time to prepare for flashing. In a terminal, we will want to run "dme
 [  +0.000005] usb 7-3: Manufacturer: TinyUSB
 [  +0.000005] usb 7-3: SerialNumber: 123456
 [  +0.006042] cdc_acm 7-3:1.0: ttyACM0: USB ACM device #<< THIS IS WHAT WE WANT
-
+```
 Take note of the value "ttyACM0" ^^^
 
 # Backup the current BIOS
@@ -205,13 +205,13 @@ This is the command we will run after successfully connecting the test clip, to 
 
 In my case:
 
-flashrom -p serprog:dev=/dev/ttyACM0 -c "W25Q128.V" -r t480_stockbios_1.bin
+```flashrom -p serprog:dev=/dev/ttyACM0 -c "W25Q128.V" -r t480_stockbios_1.bin```
 
 We want to repeat this 3 times, renaming the file to t480_stockbios_2.bin, and so on (it will take up to 15-20 minutes to read the chip each time. This is a long process)
 
 Once you have 3 dumps, run this command:
 
-sha256sum t480_stockbios*.bin
+```sha256sum t480_stockbios*.bin```
 
 Check the output. There should be 3 lines, and all lines should be identical. If they are not identical, run the flashrom command again until you have 3 identical dumps
 
@@ -243,18 +243,18 @@ r/libreboot - A guide for flashing the T480
 
 Now that we have our rom picked out, we can flash it with one easy command:
 
-sudo flashrom -p serprog:dev=/dev/ttyACM0 -c "W25Q128.V" -w /bin/release/t480_fsp_16mb/seabios_t480_fsp_16mb_libgfxinit_corebootfb.rom
+```sudo flashrom -p serprog:dev=/dev/ttyACM0 -c "W25Q128.V" -w /bin/release/t480_fsp_16mb/seabios_t480_fsp_16mb_libgfxinit_corebootfb.rom```
 
 Remember to substitute the info here with your programmer, your chip, and your rom of choice
 
 This process will take a long time, be prepared to spend 40 minutes or so waiting for it to finish. Under any circumstances, DO NOT interrupt this process. Flashing time will depend on your hardware.
 
 Eventually you should see the following output:
-
+```
 Reading old flash chip contents... done.
 Erasing and writing flash chip... Erase/write done.
 Verifying flash... VERIFIED.
-
+```
 After successful verification, you can disconnect the pico's usb cable (do this before removing the test clip), re-assemble, and enjoy your new BIOS!
 ![image](https://github.com/user-attachments/assets/8b7bb93e-0eb5-40bd-a3ae-5db0c1c70254)
 
