@@ -38,7 +38,7 @@ NOTE: Some of these steps are likely to change very soon. One has already change
 ### Not working:
 
    * headphone jack
-   * display backlight function keys
+   * xxx display backlight function keys xxx (This has been fixed in the latest patch)
 
 Things I needed:
 
